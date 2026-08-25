@@ -20,7 +20,7 @@ that's it.
 ## setup
 
 ```bash
-git clone https://github.com/yourname/technocore-id.git
+git clone https://github.com/ramadhan0679/technocore-id.git
 cd technocore-id
 python3 -m venv .venv
 source .venv/bin/activate
