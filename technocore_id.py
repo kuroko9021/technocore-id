@@ -160,6 +160,7 @@ def main():
 
     sub.add_parser("init", help="create identity")
     sub.add_parser("did", help="show your did")
+    sub.add_parser("intro", help="check-in to lobby with introduction")
 
     s = sub.add_parser("post", help="post signed message")
     s.add_argument("room")
@@ -187,6 +188,17 @@ def main():
         pp = input("passphrase: ").encode()
         key = load_key(KEY_FILE, pp)
         print(did_from_key(key))
+
+    elif args.cmd == "intro":
+        pp = input("passphrase: ").encode()
+        key = load_key(KEY_FILE, pp)
+        did = did_from_key(key)
+        text = f"Hello from a new Technocore contributor. My DID is {did}."
+        resp = post(key, "lobby", text)
+        p = resp.get("posted", {})
+        print(json.dumps(resp, indent=2, ensure_ascii=True))
+        print(f"\nseq: {p.get('seq')}  did: {did[:40]}...")
+        print("you're in! check-in complete.")
 
     elif args.cmd == "post":
         pp = input("passphrase: ").encode()
